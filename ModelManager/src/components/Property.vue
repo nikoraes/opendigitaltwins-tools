@@ -65,6 +65,7 @@ export default {
           dense: true,
           rules: [val => (!!val && RegExp('^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$').test(val)) || 'String does not match the pattern of ^[A-Za-z](?:[A-Za-z0-9_]*[A-Za-z0-9])?$'],
           hideBottomSpace: true,
+          label: 'name',
           key: 'name',
           clearable: true
         },
