@@ -314,59 +314,6 @@ namespace OWL2DTDL
                     dtdlModel.Assert(GetDtdlDescriptionTriples(oClass, interfaceNode));
                 }
 
-                // If the class is a top-level class, i.e., it has zero superclasses that are
-                // not owl:Thing, implement a generic 'name' property and externalIds alignment property
-                IEnumerable<OntologyClass> namedDirectSuperClasses = oClass.DirectSuperClasses.Where(superClass => superClass.IsNamed());
-                if (!namedDirectSuperClasses.Where(superClass => !superClass.IsOwlThing()).Any())
-                {
-                    // Create name property node and name
-                    IBlankNode namePropertyNode = dtdlModel.CreateBlankNode();
-                    dtdlModel.Assert(new Triple(interfaceNode, dtdl_contents, namePropertyNode));
-                    dtdlModel.Assert(new Triple(namePropertyNode, rdfType, dtdl_Property));
-                    ILiteralNode namePropertyDtdlNameNode = dtdlModel.CreateLiteralNode("name");
-                    dtdlModel.Assert(new Triple(namePropertyNode, dtdl_name, namePropertyDtdlNameNode));
-                    // Name is string
-                    IUriNode namePropertySchemaNode = dtdlModel.CreateUriNode(DTDL._string);
-                    dtdlModel.Assert(new Triple(namePropertyNode, dtdl_schema, namePropertySchemaNode));
-                    // Display name (of name property) is hardcoded to "name".
-                    ILiteralNode namePropertyDisplayNameNode = dtdlModel.CreateLiteralNode("name", "en");
-                    dtdlModel.Assert(new Triple(namePropertyNode, dtdl_displayName, namePropertyDisplayNameNode));
-                    // Name is writeable
-                    ILiteralNode namePropertyTrueNode = dtdlModel.CreateLiteralNode("true", new Uri(XmlSpecsHelper.XmlSchemaDataTypeBoolean));
-                    dtdlModel.Assert(new Triple(namePropertyNode, dtdl_writable, namePropertyTrueNode));
-
-                    // Create externalIds
-                    IBlankNode externalIds = dtdlModel.CreateBlankNode();
-                    dtdlModel.Assert(new Triple(interfaceNode, dtdl_contents, externalIds));
-                    dtdlModel.Assert(new Triple(externalIds, rdfType, dtdl_Property));
-                    ILiteralNode externalIdsDtdlName = dtdlModel.CreateLiteralNode("externalIds");
-                    dtdlModel.Assert(new Triple(externalIds, dtdl_name, externalIdsDtdlName));
-                    // External ids is map
-                    IBlankNode schemaNode = dtdlModel.CreateBlankNode();
-                    dtdlModel.Assert(new Triple(schemaNode, rdfType, dtdl_Map));
-                    // Map key
-                    IBlankNode schemaMapKey = dtdlModel.CreateBlankNode();
-                    dtdlModel.Assert(new Triple(schemaNode, dtdl_mapKey, schemaMapKey));
-                    ILiteralNode schemaMapKeyName = dtdlModel.CreateLiteralNode("externalIdName");
-                    dtdlModel.Assert(new Triple(schemaMapKey, dtdl_name, schemaMapKeyName));
-                    IUriNode schemaMapKeySchema = dtdlModel.CreateUriNode(DTDL._string);
-                    dtdlModel.Assert(new Triple(schemaMapKey, dtdl_schema, schemaMapKeySchema));
-                    // Map value
-                    IBlankNode schemaMapValue = dtdlModel.CreateBlankNode();
-                    dtdlModel.Assert(new Triple(schemaNode, dtdl_mapValue, schemaMapValue));
-                    ILiteralNode schemaMapValueName = dtdlModel.CreateLiteralNode("externalIdValue");
-                    dtdlModel.Assert(new Triple(schemaMapValue, dtdl_name, schemaMapValueName));
-                    IUriNode schemaMapValueSchema = dtdlModel.CreateUriNode(DTDL._string);
-                    dtdlModel.Assert(new Triple(schemaMapValue, dtdl_schema, schemaMapValueSchema));
-                    dtdlModel.Assert(new Triple(externalIds, dtdl_schema, schemaNode));
-                    // Display name of external ids is hardcoded to "External IDs".
-                    ILiteralNode externalIdsDisplayName = dtdlModel.CreateLiteralNode("External IDs", "en");
-                    dtdlModel.Assert(new Triple(externalIds, dtdl_displayName, externalIdsDisplayName));
-                    // Name is writeable
-                    ILiteralNode externalIdsTrue = dtdlModel.CreateLiteralNode("true", new Uri(XmlSpecsHelper.XmlSchemaDataTypeBoolean));
-                    dtdlModel.Assert(new Triple(externalIds, dtdl_writable, externalIdsTrue));
-                }
-
                 // If the class has direct superclasses, implement DTDL extends (for at most two, see limitation in DTDL spec)
                 IEnumerable<OntologyClass> namedSuperClasses = oClass.DirectSuperClasses.Where(superClass => superClass.IsNamed() && !superClass.IsOwlThing() && !superClass.IsDeprecated());
                 if (namedSuperClasses.Any())
