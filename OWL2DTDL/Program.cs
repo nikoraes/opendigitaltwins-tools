@@ -140,13 +140,13 @@ namespace OWL2DTDL
             { QUDT.QuantityKindNS.Power, DTDL.Power },
             { QUDT.QuantityKindNS.Mass, DTDL.Mass },
             { QUDT.QuantityKindNS.MassFlowRate, DTDL.MassFlowRate },
-            //{ QUDT.QuantityKindNS.Pressure, DTDL.Pressure },
-            //{ QUDT.QuantityKindNS.Length, DTDL.Length },
-            //{ QUDT.QuantityKindNS.Temperature, DTDL.Temperature },
+            { QUDT.QuantityKindNS.Pressure, DTDL.Pressure },
+            { QUDT.QuantityKindNS.Length, DTDL.Length },
+            { QUDT.QuantityKindNS.Temperature, DTDL.Temperature },
             { QUDT.QuantityKindNS.Time, DTDL.TimeSpan },
-            //{ QUDT.QuantityKindNS.Velocity, DTDL.Velocity },
-            //{ QUDT.QuantityKindNS.Volume, DTDL.Volume },
-            //{ QUDT.QuantityKindNS.VolumeFlowRate, DTDL.VolumeFlowRate }
+            { QUDT.QuantityKindNS.Velocity, DTDL.Velocity },
+            { QUDT.QuantityKindNS.Volume, DTDL.Volume },
+            { QUDT.QuantityKindNS.VolumeFlowRate, DTDL.VolumeFlowRate }
         };
 
         static void Main(string[] args)
