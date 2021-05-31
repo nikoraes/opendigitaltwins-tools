@@ -29,6 +29,10 @@ namespace OWL2DTDL.VocabularyHelper
         public static readonly Uri Datatype = new Uri("http://www.w3.org/2000/01/rdf-schema#Datatype");
         public static readonly Uri Literal = new Uri("http://www.w3.org/2000/01/rdf-schema#Literal");
     }
+    public static class SKOS
+    {
+        public static readonly Uri prefLabel = new Uri("http://www.w3.org/2000/01/rdf-schema#label");
+    }
 
     public static class OWL
     {
